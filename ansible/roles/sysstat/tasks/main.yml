@@ -1,0 +1,15 @@
+---
+- name: Install sysstat
+  package:
+    name: sysstat
+
+- name: Update sysstat config
+  template:
+    dest: /etc/cron.d/sysstat
+    src: sysstat_cron
+
+- name: Start and enable sysstat
+  service:
+    name: sysstat
+    enabled: yes
+    state: started

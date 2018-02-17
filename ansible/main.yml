@@ -1,0 +1,6 @@
+---
+- hosts: nodes
+  gather_facts: no
+  roles:
+    - roles/sysstat
+    - roles/agent

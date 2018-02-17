@@ -1,0 +1,34 @@
+---
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release
+    - git
+    - gcc
+    - gcc-c++
+    - python-devel
+    - python-pip
+    - python-virtualenv
+
+- name: Install scaleman agent
+  command: pip install --upgrade git+https://github.com/scaleman-dev/scaleman-agent.git
+
+- name: Remove Crontab task
+  cron:
+    name: "scaleman_cron"
+    state: absent
+
+- name: Configure crontab
+  cron:
+    hour: "*"
+    minute: "*"
+    job: "cd / && scaleman-agent -i 10 -ho {{ scaleman_data_collector }}/api/metric"
+    name: "scaleman_cron"
+
+- name: Enable and start crond
+  service:
+    name: crond
+    enabled: yes
+    state: started
