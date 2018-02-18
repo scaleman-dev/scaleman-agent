@@ -22,7 +22,7 @@ def run(interval, hook_url=None):
     if hook_url:
         requests.post(hook_url, json={
             "average_usage": average_usage,
-            "data": df.tail(10).to_dict(),
+            "data": df.tail(2).to_dict(),
             "instance_ip": requests.get('http://ip.42.pl/raw').text
         })
 

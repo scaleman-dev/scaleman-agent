@@ -1,6 +1,7 @@
 ---
-- hosts: nodes
+- hosts: all
   gather_facts: no
   roles:
     - roles/sysstat
     - roles/agent
+    - roles/nginx

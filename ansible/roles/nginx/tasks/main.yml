@@ -1,0 +1,14 @@
+---
+  - name: Install nginx
+    package:
+      state: present
+      name: nginx
+  
+  - name: Disable SELinux
+    selinux:
+      state: disabled
+
+  - name: Restart nginx
+    service:
+      name: nginx
+      state: restarted
